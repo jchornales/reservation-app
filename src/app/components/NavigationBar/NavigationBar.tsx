@@ -3,8 +3,10 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PopUpMenu from './PopUpMenu';
+import useSetInnerWidth from '@/utils/services/useSetInnerWidth';
+import usePopUpMenu from '@/utils/services/usePopUpMenu';
 
 function HamburgerMenu() {
   const lines = [...Array(3).keys()];
@@ -78,19 +80,19 @@ function NavMenu(props: { width: number }) {
 }
 
 export default function NavigationBar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [width, setWidth] = useState<number>(0);
+  const [isOpen, setIsOpen] = usePopUpMenu((state) => [state.isOpen, state.setIsOpen]);
+  const [width, setInnerWidth] = useSetInnerWidth((state) => [state.width, state.setInnerWidth]);
 
   function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
+    setInnerWidth(window.innerWidth);
   }
 
   function handleMenuButtonClick() {
-    setIsOpen((current) => !current);
+    setIsOpen();
   }
 
   useEffect(() => {
-    setWidth(window.innerWidth);
+    setInnerWidth(window.innerWidth);
     window.addEventListener('resize', handleWindowSizeChange);
     return () => {
       window.removeEventListener('resize', handleWindowSizeChange);
@@ -105,7 +107,7 @@ export default function NavigationBar() {
         </button>
       </div>
       {isOpen ? 'logo' : <NavMenu width={width} />}
-      <PopUpMenu isOpen={isOpen} />
+      <PopUpMenu />
     </nav>
   );
 }

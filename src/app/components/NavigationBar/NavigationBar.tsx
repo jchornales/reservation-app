@@ -9,10 +9,29 @@ import PopUpMenu from './PopUpMenu';
 function HamburgerMenu() {
   const lines = [...Array(3).keys()];
 
+  const button = {
+    hidden: { transform: 'translateX(100%)' },
+    show: {
+      transform: 'translateX(0)',
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const line = {
+    hidden: { transform: 'translateX(100%)' },
+    show: { transform: 'translateX(0%)' },
+  };
+
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+    <motion.div variants={button} initial="hidden" animate="show">
       {lines.map((index) => (
-        <div key={index} className="w-full h-3 bg-primary my-2"></div>
+        <motion.div
+          key={index}
+          className="w-full h-3 bg-primary my-2 translate-x"
+          variants={line}
+        />
       ))}
     </motion.div>
   );
@@ -23,14 +42,10 @@ function CloseMenu() {
     <div className="flex flex-col w-full h-full justify-center">
       <motion.div
         className="w-10 h-3 bg-primary"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transform: 'rotate(-45deg) translate(-2px,2px)' }}
+        animate={{ transform: 'rotate(-45deg) translate(-2px,2px)' }}
+        transition={{ duration: 0.6 }}
       />
-      <motion.div
-        className="w-10 h-3 bg-primary"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transform: 'rotate(45deg)' }}
-      />
+      <motion.div className="w-10 h-3 bg-primary" animate={{ transform: 'rotate(45deg)' }} />
     </div>
   );
 }
@@ -85,12 +100,12 @@ export default function NavigationBar() {
   return (
     <nav className="flex px-10 py-5 w-full">
       <div className="flex w-1/2 z-10">
-        <button className="w-10 h-[40px]" onClick={handleMenuButtonClick}>
+        <button className="w-10 h-[40px] overflow-hidden" onClick={handleMenuButtonClick}>
           {isOpen ? <CloseMenu /> : <HamburgerMenu />}
         </button>
       </div>
       {isOpen ? 'logo' : <NavMenu width={width} />}
-      {isOpen && <PopUpMenu />}
+      <PopUpMenu isOpen={isOpen} />
     </nav>
   );
 }

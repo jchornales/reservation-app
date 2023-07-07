@@ -7,16 +7,18 @@ import React, { useEffect } from 'react';
 import PopUpMenu from './PopUpMenu';
 import useSetInnerWidth from '@/utils/services/useSetInnerWidth';
 import usePopUpMenu from '@/utils/services/usePopUpMenu';
+import TIMING from '@/utils/enums/TransitionEnums';
+
+const { STAGGER_CHILDREN, MAIN_DURATION } = TIMING;
 
 function HamburgerMenu() {
   const lines = [...Array(3).keys()];
-
   const button = {
     hidden: { transform: 'translateX(100%)' },
     show: {
       transform: 'translateX(0)',
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: STAGGER_CHILDREN,
       },
     },
   };
@@ -45,9 +47,13 @@ function CloseMenu() {
       <motion.div
         className="w-10 h-3 bg-primary"
         animate={{ transform: 'rotate(-45deg) translate(-2px,2px)' }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: MAIN_DURATION }}
       />
-      <motion.div className="w-10 h-3 bg-primary" animate={{ transform: 'rotate(45deg)' }} />
+      <motion.div
+        className="w-10 h-3 bg-primary"
+        animate={{ transform: 'rotate(45deg)' }}
+        transition={{ duration: MAIN_DURATION }}
+      />
     </div>
   );
 }

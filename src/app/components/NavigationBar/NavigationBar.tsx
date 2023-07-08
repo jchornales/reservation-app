@@ -3,15 +3,39 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import PopUpMenu from './PopUpMenu';
+import useSetInnerWidth from '@/utils/services/useSetInnerWidth';
+import usePopUpMenu from '@/utils/services/usePopUpMenu';
+import TIMING from '@/utils/enums/TransitionEnums';
+
+const { STAGGER_CHILDREN, MAIN_DURATION } = TIMING;
 
 function HamburgerMenu() {
   const lines = [...Array(3).keys()];
+  const button = {
+    hidden: { transform: 'translateX(100%)' },
+    show: {
+      transform: 'translateX(0)',
+      transition: {
+        staggerChildren: STAGGER_CHILDREN,
+      },
+    },
+  };
+
+  const line = {
+    hidden: { transform: 'translateX(100%)' },
+    show: { transform: 'translateX(0%)' },
+  };
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      {lines.map(() => (
-        <div className="w-full h-3 bg-primary my-2"></div>
+    <motion.div variants={button} initial="hidden" animate="show">
+      {lines.map((index) => (
+        <motion.div
+          key={index}
+          className="w-full h-3 bg-primary my-2 translate-x"
+          variants={line}
+        />
       ))}
     </motion.div>
   );
@@ -19,23 +43,28 @@ function HamburgerMenu() {
 
 function CloseMenu() {
   return (
-    <span className="flex flex-col w-full h-full justify-center">
+    <div className="flex flex-col w-full h-full justify-center">
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transform: 'rotate(-45deg) translate(-2px,2px)' }}
-      >
-        <div className="w-10 h-3 bg-primary"></div>
-      </motion.div>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transform: 'rotate(45deg)' }}>
-        <div className="w-10 h-3 bg-primary"></div>
-      </motion.div>
-    </span>
+        className="w-10 h-3 bg-primary"
+        animate={{ transform: 'rotate(-45deg) translate(-2px,2px)' }}
+        transition={{ duration: MAIN_DURATION }}
+      />
+      <motion.div
+        className="w-10 h-3 bg-primary"
+        animate={{ transform: 'rotate(45deg)' }}
+        transition={{ duration: MAIN_DURATION }}
+      />
+    </div>
   );
 }
 
 function NavMenu(props: { width: number }) {
   return (
-    <>
+    <motion.div
+      className="flex justify-end w-1/2 z-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <div className="mx-2">
         {props.width >= 800 && (
           <Button
@@ -52,23 +81,24 @@ function NavMenu(props: { width: number }) {
           <Link href={'/dashboard'}>Book now</Link>
         </Button>
       </div>
-    </>
+    </motion.div>
   );
 }
 
 export default function NavigationBar() {
-  const [isOpen, setIsOpen] = useState(true);
-  const [width, setWidth] = useState(window.innerWidth);
+  const [isOpen, setIsOpen] = usePopUpMenu((state) => [state.isOpen, state.setIsOpen]);
+  const [width, setInnerWidth] = useSetInnerWidth((state) => [state.width, state.setInnerWidth]);
 
   function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
+    setInnerWidth(window.innerWidth);
   }
 
   function handleMenuButtonClick() {
-    setIsOpen((current) => !current);
+    setIsOpen();
   }
 
   useEffect(() => {
+    setInnerWidth(window.innerWidth);
     window.addEventListener('resize', handleWindowSizeChange);
     return () => {
       window.removeEventListener('resize', handleWindowSizeChange);
@@ -77,14 +107,13 @@ export default function NavigationBar() {
 
   return (
     <nav className="flex px-10 py-5 w-full">
-      <div className="flex w-1/2">
-        <button className="w-10" onClick={handleMenuButtonClick}>
-          {isOpen ? <HamburgerMenu /> : <CloseMenu />}
+      <div className="flex w-1/2 z-10">
+        <button className="w-10 h-[40px] overflow-hidden" onClick={handleMenuButtonClick}>
+          {isOpen ? <CloseMenu /> : <HamburgerMenu />}
         </button>
       </div>
-      <div className="flex justify-end w-1/2">
-        <NavMenu width={width} />
-      </div>
+      {isOpen ? 'logo' : <NavMenu width={width} />}
+      <PopUpMenu />
     </nav>
   );
 }

@@ -1,0 +1,8 @@
+enum TIMING {
+  MAIN_DURATION = 0.6,
+  SUB_DELAY = 0.6,
+  SUB_DURATION = 0.7,
+  STAGGER_CHILDREN = 0.2,
+}
+
+export default TIMING;

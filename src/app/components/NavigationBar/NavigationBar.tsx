@@ -33,7 +33,7 @@ function HamburgerMenu() {
       {lines.map((index) => (
         <motion.div
           key={index}
-          className="w-full h-3 bg-primary my-2 translate-x"
+          className="w-full h-[3px] bg-primary my-2 translate-x"
           variants={line}
         />
       ))}
@@ -45,12 +45,12 @@ function CloseMenu() {
   return (
     <div className="flex flex-col w-full h-full justify-center">
       <motion.div
-        className="w-10 h-3 bg-primary"
+        className="w-10 h-[3px] bg-primary"
         animate={{ transform: 'rotate(-45deg) translate(-2px,2px)' }}
         transition={{ duration: MAIN_DURATION }}
       />
       <motion.div
-        className="w-10 h-3 bg-primary"
+        className="w-10 h-[3px] bg-primary"
         animate={{ transform: 'rotate(45deg)' }}
         transition={{ duration: MAIN_DURATION }}
       />

@@ -45,12 +45,12 @@ function CloseMenu() {
   return (
     <div className="flex flex-col w-full h-full justify-center">
       <motion.div
-        className="w-10 h-[3px] bg-primary"
+        className="w-10 h-[3px] bg-secondary"
         animate={{ transform: 'rotate(-45deg) translate(-2px,2px)' }}
         transition={{ duration: MAIN_DURATION }}
       />
       <motion.div
-        className="w-10 h-[3px] bg-primary"
+        className="w-10 h-[3px] bg-secondary"
         animate={{ transform: 'rotate(45deg)' }}
         transition={{ duration: MAIN_DURATION }}
       />

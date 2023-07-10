@@ -1,4 +1,5 @@
 type NavMenuItem = {
+  id: string;
   label: string;
   url: string;
 };

@@ -12,3 +12,9 @@ export const RIGHTLIST = [
   { id: '09', label: 'Packages', url: '/placeholder' },
   { id: '10', label: 'Gallery', url: '/placeholder' },
 ];
+
+export const NAV_ADDRESS = [
+  { value: 'Find us' },
+  { value: 'Purok 4, La Paz, Magalang, Pampanga' },
+  { value: 'Get Directions', url: '/directions' },
+];

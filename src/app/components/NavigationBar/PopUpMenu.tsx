@@ -4,6 +4,7 @@ import { RIGHTLIST, LEFTLIST } from '@/utils/constants/NavList';
 import TIMING from '@/utils/enums/TransitionEnums';
 import { NavMenuLists } from '@/utils/models/NavMenuList';
 import usePopUpMenu from '@/utils/services/usePopUpMenu';
+import useSetInnerWidth from '@/utils/services/useSetInnerWidth';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import React from 'react';
@@ -15,7 +16,7 @@ const animationVariants = {
 
 const { SUB_DELAY, SUB_DURATION, MAIN_DURATION } = TIMING;
 
-function MenuList({ menuList, delay, stagger, duration }: NavMenuLists) {
+function MenuList({ menuList, delay, stagger, duration, isMobile }: NavMenuLists) {
   const lists = {
     hidden: {
       transform: 'translateY(100%)',
@@ -28,7 +29,7 @@ function MenuList({ menuList, delay, stagger, duration }: NavMenuLists) {
         delay: delay,
         duration: duration,
         when: 'beforeChildren',
-        staggerChildren: stagger,
+        staggerChildren: isMobile ? 0.05 : stagger,
       },
     },
   };
@@ -38,21 +39,21 @@ function MenuList({ menuList, delay, stagger, duration }: NavMenuLists) {
   };
 
   return (
-    <motion.ul className="w-[300px]" initial="hidden" animate="show" variants={lists}>
+    <motion.ul className="w-[250px] lg:w-[300px]" initial="hidden" animate="show" variants={lists}>
       {menuList?.map((item) => (
         <motion.li
-          className="my-4 w-full"
+          className="mt-4 w-full"
           key={item.label}
           variants={child}
           transition={{ duration: SUB_DURATION }}
         >
           <Link
-            className="text-4xl text-secondary hover:text-secondary-foreground duration-300 font-Recoleta font-medium"
+            className="h-full text-2xl md:text-3xl text-secondary hover:text-secondary-foreground duration-300 font-Recoleta font-medium"
             href={item.url}
           >
-            <span className="absolute top-0 -left-7 inline-flex w-4 text-sm font-DMSans font-semibold">
-              {item.id}
-            </span>
+            <div className="inline-flex w-4 h-full mr-2">
+              <p className="-translate-y-3 text-sm font-DMSans font-semibold">{item.id}</p>
+            </div>
             <span>{item.label}</span>
           </Link>
         </motion.li>
@@ -63,6 +64,9 @@ function MenuList({ menuList, delay, stagger, duration }: NavMenuLists) {
 
 export default function PopUpMenu() {
   const [isOpen] = usePopUpMenu((state) => [state.isOpen]);
+  const [width] = useSetInnerWidth((state) => [state.width]);
+  const isMobile = width > 767 ? false : true;
+
   return (
     <motion.div
       className="fixed top-0 left-0 right-0 flex flex-col md:flex-row w-screen h-screen bg-primary"
@@ -71,13 +75,30 @@ export default function PopUpMenu() {
       variants={animationVariants}
       transition={{ duration: MAIN_DURATION }}
     >
-      <div className="flex flex-col justify-center items-end w-full lg:w-[35%] md:w-[50%] h-auto md:h-full pt-20">
-        {isOpen && <MenuList menuList={LEFTLIST} delay={0} stagger={0.2} duration={1} />}
-        <motion.div className="min-h-[200px]  w-[300px]"></motion.div>
+      <div className="flex flex-col justify-center items-center md:items-center lg:items-end w-full h lg:w-[35%] md:w-[50%] h-full md:h-full pt-20">
+        {isOpen && (
+          <MenuList
+            menuList={LEFTLIST}
+            delay={0}
+            stagger={0.2}
+            duration={MAIN_DURATION}
+            isMobile={isMobile}
+          />
+        )}
+        {isOpen && isMobile && (
+          <MenuList menuList={RIGHTLIST} delay={0.2} stagger={0.05} duration={MAIN_DURATION} />
+        )}
+        <motion.div className="min-h-[200px]  w-[250px] lg:w-[300px] text-secondary pt-20">
+          <p>Find us</p>
+          <p>Purok 4, La Paz, Magalang, Pampanga, 2011</p>
+          <Link href="/directions" rel="noopener noreferrer" target="_blank">
+            Get Directions
+          </Link>
+        </motion.div>
       </div>
-      {isOpen && (
+      {isOpen && !isMobile && (
         <motion.div
-          className="flex flex-col justify-center items-start w-full pt-20 lg:px-[100px] lg:w-[65%] md:w-[50%] h-auto md:h-full lg:bg-popup-menu bg-secondary bg-no-repeat bg-cover"
+          className="flex flex-col justify-center items-center lg:items-start  w-full pt-20 lg:px-[100px] lg:w-[65%] md:w-[50%] h-full lg:bg-popup-menu bg-primary bg-no-repeat bg-cover"
           initial={{ opacity: 0, transform: 'scale(1.1)' }}
           animate={{ opacity: 1, transform: 'scale(1)' }}
           transition={{ delay: SUB_DELAY, duration: SUB_DURATION }}

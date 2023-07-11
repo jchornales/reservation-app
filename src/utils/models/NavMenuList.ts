@@ -9,4 +9,5 @@ export type NavMenuLists = {
   delay?: number;
   stagger: number;
   duration?: number;
+  isMobile?: boolean;
 };

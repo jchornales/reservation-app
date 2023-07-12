@@ -70,15 +70,22 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
-      height: {
-        3: '3px',
-      },
-      rotate: {
-        135: '135deg',
-      },
       backgroundImage: {
         'popup-menu':
-          "url('https://images.unsplash.com/photo-1605538108528-8b9be1168ad8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80')",
+          "url('https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')",
+      },
+      gridTemplateRows: {
+        popup: 'repeat(4, minmax(200px,1fr))',
+      },
+      gridTemplateColumns: {
+        popup: 'repeat(3, minmax(300px,1fr))',
+      },
+      gridAutoRows: {
+        '2fr': 'minmax(200px, 2fr)',
+      },
+      fontFamily: {
+        DMSans: ['DM Sans', 'sans-serif'],
+        Recoleta: ['Recoleta', 'sans-serif'],
       },
     },
   },

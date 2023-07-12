@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
+@font-face {
+  font-family: 'Recoleta';
+  src: url('../lib/fonts/Recoleta-RegularDEMO.otf');
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -23,7 +30,7 @@
     --primary-foreground: 60 36% 83%;
 
     --secondary: 60 36% 95%;
-    --secondary-foreground: 81 18% 34%;
+    --secondary-foreground: 7 100% 84%;
 
     --accent: 60 36% 83%;
     --accent-foreground: 81 18% 34%;

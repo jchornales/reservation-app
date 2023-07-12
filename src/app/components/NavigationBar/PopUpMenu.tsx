@@ -39,7 +39,12 @@ function MenuList({ menuList, delay, stagger, duration, isMobile }: NavMenuLists
   };
 
   return (
-    <motion.ul className="w-[250px] lg:w-[300px]" initial="hidden" animate="show" variants={lists}>
+    <motion.ul
+      className="w-[250px] lg:w-[300px] xl:w-[350px]"
+      initial="hidden"
+      animate="show"
+      variants={lists}
+    >
       {menuList?.map((item) => (
         <motion.li
           className="mt-4 w-full"
@@ -48,7 +53,7 @@ function MenuList({ menuList, delay, stagger, duration, isMobile }: NavMenuLists
           transition={{ duration: SUB_DURATION }}
         >
           <Link
-            className="h-full text-2xl md:text-3xl text-secondary hover:text-secondary-foreground duration-300 font-Recoleta font-medium"
+            className="h-full text-2xl lg:text-3xl xl:text-4xl text-secondary hover:text-secondary-foreground duration-300 font-Recoleta font-medium"
             href={item.url}
           >
             <div className="inline-flex w-4 h-full mr-2">
@@ -69,13 +74,13 @@ export default function PopUpMenu() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 flex flex-col md:flex-row w-screen h-screen bg-primary"
+      className="absolute top-0 left-0 right-0 flex flex-col md:flex-row w-screen h-screen bg-primary"
       initial={'closed'}
       animate={isOpen ? 'open' : 'closed'}
       variants={animationVariants}
       transition={{ duration: MAIN_DURATION }}
     >
-      <div className="flex flex-col justify-center items-center md:items-center lg:items-end w-full h lg:w-[35%] md:w-[50%] h-full md:h-full pt-20">
+      <div className="flex flex-col justify-center items-center md:items-center lg:items-end w-full h lg:w-[35%] md:w-[50%] h-full md:h-full pt-20 lg:pr-[5%]">
         {isOpen && (
           <MenuList
             menuList={LEFTLIST}
@@ -88,24 +93,45 @@ export default function PopUpMenu() {
         {isOpen && isMobile && (
           <MenuList menuList={RIGHTLIST} delay={0.2} stagger={0.05} duration={MAIN_DURATION} />
         )}
-        <motion.div className="min-h-[200px]  w-[250px] lg:w-[300px] text-secondary pt-20">
-          <p>Find us</p>
-          <p>Purok 4, La Paz, Magalang, Pampanga, 2011</p>
-          <Link href="/directions" rel="noopener noreferrer" target="_blank">
+        <motion.div className="md:h-[200px]  w-[250px] lg:w-[300px] xl:w-[350px] text-secondary pt-24 md:pt-20">
+          <p className="text-[13px] tracking-widest	font-bold">Find us</p>
+          <p className="mt-2 mb-4">
+            Purok 4, Azelea Street Lot A29, La Paz, Magalang, Pampanga, Philippines 2011
+          </p>
+          <Link
+            className="hover:text-secondary-foreground underline underline-offset-8	ease-in-out duration-300	"
+            href="/directions"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             Get Directions
           </Link>
         </motion.div>
       </div>
-      {isOpen && !isMobile && (
+      {isOpen && (
         <motion.div
-          className="flex flex-col justify-center items-center lg:items-start  w-full pt-20 lg:px-[100px] lg:w-[65%] md:w-[50%] h-full lg:bg-popup-menu bg-primary bg-no-repeat bg-cover"
+          className="flex flex-col justify-center items-center lg:items-start  w-full md:pt-20 lg:pl-20 lg:w-[65%] md:w-[50%] h-full lg:bg-popup-menu bg-primary bg-no-repeat bg-cover"
           initial={{ opacity: 0, transform: 'scale(1.1)' }}
           animate={{ opacity: 1, transform: 'scale(1)' }}
           transition={{ delay: SUB_DELAY, duration: SUB_DURATION }}
         >
-          <MenuList menuList={RIGHTLIST} stagger={0.03} duration={SUB_DURATION} />
-          <motion.div className="min-h-[200px] w-[300px]"></motion.div>
-          <div className="absolute top-0 left-0 w-full h-full bg-primary opacity-[70%] z-[-1]"></div>
+          {!isMobile && <MenuList menuList={RIGHTLIST} stagger={0.03} duration={SUB_DURATION} />}
+          <motion.div className="md:h-[200px]  w-[250px] lg:w-[300px] xl:w-[350px] text-secondary pt-10 pb-20 md:pb-0 md:pt-20">
+            <p className="text-[13px] tracking-widest	font-bold">Contact us</p>
+            <p className="mt-2">(+63) 935-1233-013</p>
+            <p className="mb-4">randomemail@gmail.com</p>
+            <Link
+              className="hover:text-secondary-foreground underline underline-offset-8	ease-in-out duration-300	"
+              href="/directions"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              FAQs
+            </Link>
+          </motion.div>
+          {!isMobile && (
+            <div className="absolute top-0 left-0 w-full h-full bg-primary opacity-[70%] z-[-1] pointer-events-none"></div>
+          )}
         </motion.div>
       )}
     </motion.div>

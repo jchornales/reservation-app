@@ -82,31 +82,39 @@ export default function PopUpMenu() {
     >
       <div className="flex flex-col justify-center items-center md:items-center lg:items-end w-full h lg:w-[35%] md:w-[50%] h-full md:h-full pt-20 lg:pr-[5%]">
         {isOpen && (
-          <MenuList
-            menuList={LEFTLIST}
-            delay={0}
-            stagger={0.2}
-            duration={MAIN_DURATION}
-            isMobile={isMobile}
-          />
+          <>
+            <MenuList
+              menuList={LEFTLIST}
+              delay={0}
+              stagger={0.2}
+              duration={MAIN_DURATION}
+              isMobile={isMobile}
+            />
+
+            {isMobile && (
+              <MenuList menuList={RIGHTLIST} delay={0.2} stagger={0.05} duration={MAIN_DURATION} />
+            )}
+            <motion.div
+              className="md:h-[200px]  w-[250px] lg:w-[300px] xl:w-[350px] text-secondary pt-24 md:pt-20"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: SUB_DELAY, duration: MAIN_DURATION }}
+            >
+              <p className="text-[13px] tracking-widest	font-bold">Find us</p>
+              <p className="mt-2 mb-4">
+                Purok 4, Azelea Street Lot A29, La Paz, Magalang, Pampanga, Philippines 2011
+              </p>
+              <Link
+                className="hover:text-secondary-foreground underline underline-offset-8	ease-in-out duration-300	"
+                href="/directions"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Get Directions
+              </Link>
+            </motion.div>
+          </>
         )}
-        {isOpen && isMobile && (
-          <MenuList menuList={RIGHTLIST} delay={0.2} stagger={0.05} duration={MAIN_DURATION} />
-        )}
-        <motion.div className="md:h-[200px]  w-[250px] lg:w-[300px] xl:w-[350px] text-secondary pt-24 md:pt-20">
-          <p className="text-[13px] tracking-widest	font-bold">Find us</p>
-          <p className="mt-2 mb-4">
-            Purok 4, Azelea Street Lot A29, La Paz, Magalang, Pampanga, Philippines 2011
-          </p>
-          <Link
-            className="hover:text-secondary-foreground underline underline-offset-8	ease-in-out duration-300	"
-            href="/directions"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Get Directions
-          </Link>
-        </motion.div>
       </div>
       {isOpen && (
         <motion.div
@@ -118,7 +126,7 @@ export default function PopUpMenu() {
           {!isMobile && <MenuList menuList={RIGHTLIST} stagger={0.03} duration={SUB_DURATION} />}
           <motion.div className="md:h-[200px]  w-[250px] lg:w-[300px] xl:w-[350px] text-secondary pt-10 pb-20 md:pb-0 md:pt-20">
             <p className="text-[13px] tracking-widest	font-bold">Contact us</p>
-            <p className="mt-2">(+63) 935-1233-013</p>
+            <p className="mt-2">(+63) 935-1233-013 / (+63) 222-3950-210</p>
             <p className="mb-4">randomemail@gmail.com</p>
             <Link
               className="hover:text-secondary-foreground underline underline-offset-8	ease-in-out duration-300	"

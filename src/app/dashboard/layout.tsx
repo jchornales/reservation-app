@@ -3,5 +3,5 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <main>{children}</main>;
+  return <main className="w-screen h-screen">{children}</main>;
 }

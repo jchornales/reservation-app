@@ -33,7 +33,7 @@ function HamburgerMenu() {
       {lines.map((index) => (
         <motion.div
           key={index}
-          className="w-full h-[3px] bg-primary my-2 translate-x"
+          className="w-full h-[2px] bg-primary my-1 translate-x"
           variants={line}
         />
       ))}
@@ -45,12 +45,12 @@ function CloseMenu() {
   return (
     <div className="flex flex-col w-full h-full justify-center">
       <motion.div
-        className="w-10 h-[3px] bg-secondary"
+        className="w-10 h-[2px] bg-secondary"
         animate={{ transform: 'rotate(-45deg) translate(-2px,2px)' }}
         transition={{ duration: MAIN_DURATION }}
       />
       <motion.div
-        className="w-10 h-[3px] bg-secondary"
+        className="w-10 h-[2px] bg-secondary"
         animate={{ transform: 'rotate(45deg)' }}
         transition={{ duration: MAIN_DURATION }}
       />
@@ -68,7 +68,7 @@ function NavMenu(props: { width: number }) {
       <div className="mx-2">
         {props.width >= 800 && (
           <Button
-            className="px-7 bg-transparent border-2 border-accent text-accent-foreground"
+            className="px-7 bg-transparent border-[1px] border-accent-foreground hover:border-accent text-accent-foreground"
             variant="outline"
             asChild
           >
@@ -106,7 +106,7 @@ export default function NavigationBar() {
   }, []);
 
   return (
-    <nav className="flex px-10 py-5 w-full">
+    <nav className="fixed top-0 left-0 flex px-14 py-7 w-full z-10">
       <div className="flex w-1/2 z-10">
         <button className="w-10 h-[40px] overflow-hidden" onClick={handleMenuButtonClick}>
           {isOpen ? <CloseMenu /> : <HamburgerMenu />}

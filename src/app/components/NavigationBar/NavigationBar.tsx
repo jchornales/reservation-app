@@ -65,7 +65,7 @@ function NavMenu(props: { width: number }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <div className="mx-2">
+      <div className="mx-4">
         {props.width >= 800 && (
           <Button
             className="px-7 bg-transparent border-[1px] border-accent-foreground hover:border-accent text-accent-foreground"
@@ -76,7 +76,7 @@ function NavMenu(props: { width: number }) {
           </Button>
         )}
       </div>
-      <div className="mx-2">
+      <div className="mx-4">
         <Button className="px-7" asChild>
           <Link href={'/dashboard'}>Book now</Link>
         </Button>
@@ -106,7 +106,12 @@ export default function NavigationBar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 flex px-14 py-7 w-full z-10">
+    <motion.nav
+      className="fixed top-0 left-0 flex px-24 py-14 w-full z-10"
+      initial={{ opacity: 0, transform: 'translateY(-100%)' }}
+      animate={{ opacity: 1, transform: 'translateY(0%)' }}
+      transition={{ delay: MAIN_DURATION, duration: MAIN_DURATION }}
+    >
       <div className="flex w-1/2 z-10">
         <button className="w-10 h-[40px] overflow-hidden" onClick={handleMenuButtonClick}>
           {isOpen ? <CloseMenu /> : <HamburgerMenu />}
@@ -114,6 +119,6 @@ export default function NavigationBar() {
       </div>
       {isOpen ? 'logo' : <NavMenu width={width} />}
       <PopUpMenu />
-    </nav>
+    </motion.nav>
   );
 }

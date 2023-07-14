@@ -40,7 +40,7 @@ function MenuList({ menuList, delay, stagger, duration, isMobile }: NavMenuLists
 
   return (
     <motion.ul
-      className="w-[250px] lg:w-[300px] xl:w-[350px]"
+      className="w-[250px] lg:w-[300px] xl:w-[370px]"
       initial="hidden"
       animate="show"
       variants={lists}
@@ -53,7 +53,7 @@ function MenuList({ menuList, delay, stagger, duration, isMobile }: NavMenuLists
           transition={{ duration: SUB_DURATION }}
         >
           <Link
-            className="h-full text-2xl lg:text-3xl xl:text-4xl text-secondary hover:text-secondary-foreground duration-300 font-Recoleta font-medium"
+            className="h-full text-2xl lg:text-3xl xl:text-4xl text-secondary hover:text-secondary-foreground duration-300 font-WoodlandBold font-medium"
             href={item.url}
           >
             <div className="inline-flex w-4 h-full mr-2">
@@ -95,7 +95,7 @@ export default function PopUpMenu() {
               <MenuList menuList={RIGHTLIST} delay={0.2} stagger={0.05} duration={MAIN_DURATION} />
             )}
             <motion.div
-              className="md:h-[200px]  w-[250px] lg:w-[300px] xl:w-[350px] text-secondary pt-24 md:pt-20"
+              className="md:h-[200px]  w-[250px] lg:w-[300px] xl:w-[370px] text-secondary pt-24 md:pt-20"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: SUB_DELAY, duration: MAIN_DURATION }}
@@ -124,7 +124,7 @@ export default function PopUpMenu() {
           transition={{ delay: SUB_DELAY, duration: SUB_DURATION }}
         >
           {!isMobile && <MenuList menuList={RIGHTLIST} stagger={0.03} duration={SUB_DURATION} />}
-          <motion.div className="md:h-[200px]  w-[250px] lg:w-[300px] xl:w-[350px] text-secondary pt-10 pb-20 md:pb-0 md:pt-20">
+          <motion.div className="md:h-[200px]  w-[250px] lg:w-[300px] xl:w-[370px] text-secondary pt-10 pb-20 md:pb-0 md:pt-20">
             <p className="text-[13px] tracking-widest	font-bold">Contact us</p>
             <p className="mt-2">(+63) 935-1233-013 / (+63) 222-3950-210</p>
             <p className="mb-4">randomemail@gmail.com</p>

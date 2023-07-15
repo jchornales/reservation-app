@@ -1,12 +1,26 @@
+'use client';
 import React from 'react';
+import { motion } from 'framer-motion';
+import TIMING from '@/utils/enums/TransitionEnums';
+
+const { MAIN_DURATION } = TIMING;
 
 export default function HeroSection() {
   return (
-    <div className="grid place-items-center w-full h-full bg-hero-section">
-      <div className="absolute top-0 left-0 w-full h-full bg-white opacity-[80%] pointer-events-none"></div>
-      <div className="relative w-1/2 h-1/2 lg:min-h-[600px] bg-hero-section bg-cover">
-        <div className="absolute top-1/2 -translate-y-1/2 -left-[200px] w-[400px] h-[200px] bg-gray-200"></div>
-      </div>
-    </div>
+    <motion.div
+      className="text-center w-full h-full bg-popup-menu bg-cover pt-[80px]"
+      initial={{ transform: 'scale(.5)' }}
+      animate={{ transform: 'scale(1)' }}
+      transition={{ duration: MAIN_DURATION }}
+    >
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: MAIN_DURATION, duration: MAIN_DURATION }}
+      >
+        <h1 className="text-5xl text-primary font-WoodlandBold">Casa Martini</h1>
+        <p className="text-2xl text-primary font-WoodlandBold">Hotel & Resort</p>
+      </motion.div>
+    </motion.div>
   );
 }

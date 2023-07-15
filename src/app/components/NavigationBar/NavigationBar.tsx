@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import React, { useEffect } from 'react';
-import PopUpMenu from './PopUpMenu';
+import PopUpMenu from '../PopUpMenu/PopUpMenu';
 import useSetInnerWidth from '@/utils/services/useSetInnerWidth';
 import usePopUpMenu from '@/utils/services/usePopUpMenu';
 import TIMING from '@/utils/enums/TransitionEnums';
